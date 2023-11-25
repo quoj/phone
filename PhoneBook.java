@@ -3,7 +3,6 @@ package neww;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PhoneBook extends Phone {
     private final List<PhoneNumber> phoneList;
 
@@ -21,7 +20,7 @@ public class PhoneBook extends Phone {
             PhoneNumber newPhoneNumber = new PhoneNumber(name, phoneNumbers);
             phoneList.add(newPhoneNumber);
         } else {
-            List<String> existingPhoneNumbers = foundPhoneNumber.getPhone();
+            List<String> existingPhoneNumbers = foundPhoneNumber.phone();
             if (!existingPhoneNumbers.contains(phone)) {
                 existingPhoneNumbers.add(phone);
             }
@@ -31,7 +30,7 @@ public class PhoneBook extends Phone {
     @Override
     public PhoneNumber searchPhone(String name) {
         for (PhoneNumber phoneNumber : phoneList) {
-            if (phoneNumber.getName().equals(name)) {
+            if (phoneNumber.name().equals(name)) {
                 return phoneNumber;
             }
         }
@@ -40,25 +39,10 @@ public class PhoneBook extends Phone {
 
     @Override
     public void sort() {
-        phoneList.sort((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()));
-    }                   
+        phoneList.sort((p1, p2) -> p1.name().compareToIgnoreCase(p2.name()));
+    }
 
-    public static void main(String[] args) {
-        PhoneBook phoneBook = new PhoneBook();
-        phoneBook.insertPhone("TuanAnh", "123456789");
-        phoneBook.insertPhone("AnhNgoc", "987654321");
-        phoneBook.insertPhone("KieuChi", "555555555");
-        phoneBook.sort();
-
-        for (PhoneNumber phoneNumber : phoneBook.phoneList) {
-            System.out.println("Name: " + phoneNumber.getName() + ", Phone: " + phoneNumber.getPhone());
-        }
-
-        PhoneNumber foundPhoneNumber = phoneBook.searchPhone("Jane");
-        if (foundPhoneNumber != null) {
-            System.out.println("Phone number found: " + foundPhoneNumber.getPhone());
-        } else {
-            System.out.println("Phone number not found.");
-        }
+    public List<PhoneNumber> getPhoneList() {
+        return phoneList;
     }
 }
